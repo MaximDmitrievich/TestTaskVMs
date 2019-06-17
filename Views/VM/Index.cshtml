@@ -1,0 +1,45 @@
+@model IEnumerable<VM>
+@{
+    ViewData["Title"] = "VMs";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />  
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />  
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />  
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>  
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>  
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Buttons</h2>
+    </div>
+    <div class="col-md-3">
+        <h2>Table</h2>
+        <table id="VMTable" class="table" cellspacing="0">
+            <thead>
+                <tr>
+                    @foreach(var property in Model.GetType().GetGenericArguments()[0].GetProperties())
+                    {
+                        <th>@property.Name</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        @foreach(var property in item.GetType().GetProperties())
+                        {
+                            <td>@property.GetValue(item)</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
